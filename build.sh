@@ -2,38 +2,66 @@
 
 # variables
 let step_no=0
+PROJECT_NAME=jumper
+BUILD_DIR_NAME=$PROJECT_NAME"-build"
 
-# function
+# print text colors
+COLOR_HEAD='\033[1;33m'
+COLOR_SUBHEAD='\033[0;33m'
+GREEN='\033[1;32m'
+RED='\033[1;31m'
+NC='\033[0m' # No Color
+
+# print iteration number and passed text
 function printAndIter {
-    echo
     let step_no=step_no+1
-    echo $step_no$1
+    if [ -z "$2" ]; then
+        echo -e $COLOR_SUBHEAD
+        echo -e ' '$step_no$1${NC}
+    else
+        echo -e $1
+        echo -e ' '$step_no$2${NC}
+    fi
+}
+
+# print if last color succeeded or failed
+function printCommandSucceeded {
+    if [ $? -eq 0 ]; then
+        echo -e $1 ${GREEN}[OK]${NC}
+    else
+        echo -e $1 ${RED}[FAIL]${NC}
+    fi
 }
 
 # ******************* #
 # main body starts here
 # ******************* #
 
-# welcome text
-echo "-- I'll make ../jumper-build and create binary there --"
+echo -e $GREEN
+echo -e " Welcome to $RED"$PROJECT_NAME"$GREEN builder"
+echo -e " I'll create directory: $RED"$BUILD_DIR_NAME"$GREEN and create binary there"$NC
 
-# do the job from here
-printAndIter ". --> Im starting here:"
+printAndIter ". --> I'm starting here:"
 pwd
 
+printAndIter ". --> removing old binaries"
 cd ../
-mkdir -p jumper-build
-cd jumper-build
-printAndIter ". --> now I'm here: "
-pwd
+rm -fr $PWD/$BUILD_DIR_NAME
+echo "removing: "$PWD/$BUILD_DIR_NAME
+printCommandSucceeded
 
-printAndIter ". --> generating makefile:"
-cmake -G "Unix Makefiles" ../jumper
+printAndIter ". --> in build directory, generate makefiles: "
+mkdir -p $BUILD_DIR_NAME
+cd $BUILD_DIR_NAME
+cmake -G "Unix Makefiles" ../$PROJECT_NAME
+printCommandSucceeded
 
 printAndIter ". --> building binary:"
 make
+printCommandSucceeded
 
-printAndIter ". --> starting built binary:"
+printAndIter $COLOR_HEAD ". --> starting binary:"
 
 echo
 ./jumper
+echo

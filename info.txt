@@ -1,0 +1,17 @@
+####################################################################
+# --- installing gtest ---
+# clone the code
+# build instructions: https://github.com/google/googletest/tree/master/googletest
+# build lib:
+# https://gist.github.com/massenz/41bb2c8375294f4d9927i
+# go to code directory:
+~/Moje/moj_kod/libs/googletest-master$ cd build/
+# make build directory:
+mkdir build
+cd build
+# build with Google Test's samples:
+wbasiak@wbasiak-HP:~/Moje/moj_kod/libs/googletest-master/build$ cmake -Dgtest_build_samples=ON -Dgtest_build_tests=ON ../googletest/
+make
+make test
+####################################################################
+
