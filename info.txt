@@ -10,7 +10,7 @@
 mkdir build
 cd build
 # build with Google Test's samples:
-wbasiak@wbasiak-HP:~/Moje/moj_kod/libs/googletest-master/build$ cmake -Dgtest_build_samples=ON -Dgtest_build_tests=ON ../googletest/
+HP:~/Moje/moj_kod/libs/googletest-master/build$ cmake -Dgtest_build_samples=ON -Dgtest_build_tests=ON ../googletest/
 make
 make test
 ####################################################################
